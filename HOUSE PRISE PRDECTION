@@ -1,3 +1,4 @@
+# Step:1 Data Exploration and Preprocess
 import pandas as pd
 import matplotlib.pyplot as plt 
 import seaborn as sns
@@ -33,3 +34,44 @@ y=df['price']
 
 #Splitting the dataset into training and testing sets
 x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=42)
+
+# Building the Linear Regression Model
+model = LinearRegression() 
+# Fitting the model on the training data 
+model.fit(x_train, y_train)
+
+# Step 3: Model Evaluation
+# Model Evaluation 
+y_pred = model.predict(x_test)
+
+# Mean Squared Error and R-squared for model evaluation 
+mse = mean_squared_error(y_test, y_pred) 
+r2 = r2_score (y_test, y_pred)
+
+print("Mean Squared Error:", mse) 
+print("R-squared: ", r2)
+
+# STEP 4: PREDICTION AND VISULATION
+
+# Predictions and Visualization 
+# To visualize the predictions against actual prices, we'll use a
+
+plt.scatter (y_test, y_pred)
+plt.xlabel("Actual Prices") 
+plt.ylabel("Predicted Prices")
+plt.title("Actual Prices vs. Predicted Prices") 
+plt.show()
+
+# We can also create a residual plot to check the model's performar 
+residuals =y_test - y_pred 
+plt.scatter (y_test, residuals) 
+plt.axhline(y=0, color='red', linestyle='--')
+plt.xlabel("Actual Prices") 
+plt.ylabel("Residuals")
+plt.title("Residual Plot")
+plt.show()
+
+# Lastly, let's use the trained model to make predictions on 
+new_data = [[3, 2, 1500, 4000, 1, 0, 0, 3]] 
+predicted_price = model.predict(new_data)
+print("Predicted Price:", predicted_price[0])
